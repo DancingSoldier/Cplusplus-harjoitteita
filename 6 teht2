@@ -1,0 +1,53 @@
+#ifndef OPERATION_H
+#define OPERATION_H
+#include <cstdio>
+// Abstrakti yliluokka: Laskutoimitus
+class Operation {
+public:
+    virtual ~Operation() = default;
+
+
+    virtual double calculate(double x, double y) const = 0;
+};
+
+// Aliluokka: Yhteenlasku
+class Addition : public Operation {
+public:
+    double calculate(double x, double y) const override {
+        return x + y;
+    }
+};
+
+// Aliluokka: Kertolasku
+class Multiplication : public Operation {
+public:
+    double calculate(double x, double y) const override {
+        return x * y;
+    }
+};
+
+#endif // OPERATION_H
+
+int main() {
+    // Laskutoimitus-tyyppinen osoitin
+    Operation* operationPtr = nullptr;
+    double number1 = 10.0;
+    double number2 = 3.0;
+    // Yhteenlaskuinstanssi
+    Addition addition;
+    operationPtr = &addition; // Osoitetaan Yhteenlasku-olioon
+
+
+    double result = operationPtr->calculate(number1, number2);
+    printf("%.2f + %.2f = %.2f\n", number1, number2, result);
+
+    // Kertolaskuinstanssi
+    Multiplication multiplication;
+    operationPtr = &multiplication; // Osoitetaan Kertolasku-olioon
+
+
+    result = operationPtr->calculate(number1, number2);
+    printf("%.2f * %.2f = %.2f\n", number1, number2, result);
+
+    return 0;
+}
