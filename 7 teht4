@@ -1,0 +1,58 @@
+#include <iostream>
+#include <string>
+
+// Perusluokka: Julkaisu
+class Julkaisu {
+public:
+    explicit Julkaisu(const std::string& input_nimi) : nimi(input_nimi) {}
+
+    virtual void tulosta_tiedot() const {
+        std::cout << nimi << std::endl;
+    }
+
+    virtual ~Julkaisu() = default; // Virtuaalinen tuhoaja, jotta perityt luokat tuhoutuvat oikein
+
+protected:
+    std::string nimi;
+};
+
+// Aliluokka: Kirja
+class Kirja : public Julkaisu {
+public:
+    Kirja(const std::string& nimi, const std::string& input_kirjoittaja, int input_sivumaara)
+        : Julkaisu(nimi), kirjoittaja(input_kirjoittaja), sivumaara(input_sivumaara) {}
+
+    void tulosta_tiedot() const override {
+        Julkaisu::tulosta_tiedot();
+        std::cout << "Kirjoittaja: " << kirjoittaja << ", Sivumaara: " << sivumaara << std::endl;
+    }
+
+private:
+    std::string kirjoittaja;
+    int sivumaara;
+};
+
+// Aliluokka: Lehti
+class Lehti : public Julkaisu {
+public:
+    Lehti(const std::string& nimi, const std::string& input_paatoimittaja)
+        : Julkaisu(nimi), paatoimittaja(input_paatoimittaja) {}
+
+    void tulosta_tiedot() const override {
+        Julkaisu::tulosta_tiedot();
+        std::cout << "Paatoimittaja: " << paatoimittaja << std::endl;
+    }
+
+private:
+    std::string paatoimittaja;
+};
+
+int main() {
+    Lehti aku_ankka("Aku Ankka", "Aki Hyyppa");
+    Kirja hytti_nro6("Hytti nro 6", "Rosa Liksom", 200);
+
+    aku_ankka.tulosta_tiedot();
+    hytti_nro6.tulosta_tiedot();
+
+    return 0;
+}
