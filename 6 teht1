@@ -1,0 +1,88 @@
+#ifndef AJONEUVO_HIERARKIA
+#define AJONEUVO_HIERARKIA
+
+#include <string>
+#include <iostream>
+
+class Ajoneuvo
+{
+protected:
+	double huippuNopeus;
+	int vuosi;
+	double paino;
+
+public:
+	Ajoneuvo(double huippuNopeus, int vuosi, double paino)
+		: huippuNopeus(huippuNopeus), vuosi(vuosi), paino(paino) {}
+
+	virtual ~Ajoneuvo() = default;
+};
+
+
+class Car : public Ajoneuvo
+{
+protected:
+	int ovet;
+	int renkaat;
+
+public:
+	Car(double huippuNopeus, int vuosi, double paino, int ovet, int renkaat)
+		: Ajoneuvo(huippuNopeus, vuosi, paino), ovet(ovet), renkaat(renkaat) {}
+};
+
+class HenkiloAuto : public Car
+{
+private:
+	int matkustajat;
+
+public:
+	HenkiloAuto(double huippuNopeus, int vuosi, double paino, int ovet, int renkaat, int matkustajat)
+		: Car(huippuNopeus, vuosi, paino, ovet, renkaat), matkustajat(matkustajat) {}
+};
+class Rekka : public Car
+{
+private:
+	double maksimiKantamus;
+
+public:
+	Rekka(double huippuNopeus, int vuosi, double paino, int ovet, int renkaat, double maksimiKantamus)
+		: Car(huippuNopeus, vuosi, paino, ovet, renkaat), maksimiKantamus(maksimiKantamus) {}
+};
+class Lentokone : public Ajoneuvo
+{
+private:
+	double maksimiLentoKorkeus;
+
+public:
+	Lentokone(double huippuNopeus, int vuosi, double paino, double maksimiKorkeus)
+		: Ajoneuvo(huippuNopeus, vuosi, paino), maksimiLentoKorkeus(maksimiKorkeus) {}
+
+};
+
+class Laiva : public Ajoneuvo {
+private:
+	double maksimiSyvays;
+
+public:
+	Laiva(double maksimiNopeus, int vuosi, double paino, double maksimiTilavuus)
+		:Ajoneuvo(huippuNopeus, vuosi, paino), maksimiSyvays(maksimiTilavuus) {}
+};
+
+
+
+#endif // !AJONEUVO_HIERARKIA
+
+
+
+int main() {
+
+	HenkiloAuto personalCar(200.0, 2020, 1500.0, 4, 4, 5);
+	Rekka deliveryTruck(120.0, 2015, 8000.0, 2, 6, 10000.0);
+	Lentokone jet(900.0, 2018, 40000.0, 12000.0);
+	Laiva cargoShip(40.0, 2010, 50000.0, 10.0);
+
+
+	std::cout << "All vehicle objects have been created successfully.\n";
+
+	return 0;
+}
